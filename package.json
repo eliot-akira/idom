@@ -1,0 +1,19 @@
+{
+  "name": "idom",
+  "version": "0.0.2",
+  "description": "Modular, smart-rendering views with JSX and incremental DOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "incremental-dom": "*"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/eliot-akira/idom.git"
+  },
+  "keywords": [],
+  "license": "MIT"
+}
