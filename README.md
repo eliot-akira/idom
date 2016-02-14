@@ -3,35 +3,17 @@
 
 Modular, smart-rendering views with JSX and incremental DOM
 
-## Install
-
-```bash
-$ npm install idom --save
-```
-
-#### Setup for JSX
-
-```bash
-$ npm install babel babel-plugin-transform-react-jsx --save-dev
-```
-
-In *.babelrc*
-
-```json
-"plugins": [
-  ["transform-react-jsx", { "pragma": "iDom.create" }]
-]
-```
-
 ## Use
 
-The library must be loaded before any JSX.
+Require/import the library before any JSX.
 
 ```js
 import iDom from 'idom'
 ```
 
-**Example component: pure function**
+## Example
+
+**Pure function**
 
 ```js
 const Button = (props) => {
@@ -50,7 +32,7 @@ const Button = (props) => {
 }
 ```
 
-**Example component: class**
+**Class**
 
 ```js
 class Counter {
@@ -61,13 +43,13 @@ class Counter {
     }
   }
 
-  onClick() {
+  onClick(e) {
 
     // `this` should point to instance
 
     this.state.count++    
 
-    // Render
+    // Re-render
   }
 
   render( props ) {
@@ -84,7 +66,37 @@ class Counter {
 **Render**
 
 ```js
-const app = dom.query('#.app')
+const app = dom.query('#app')
 
 app.render(<Counter />)
 ```
+
+## Install
+
+```bash
+$ npm install idom --save
+```
+
+#### Setup for JSX
+
+Dev dependencies
+
+```bash
+$ npm install babel babel-plugin-transform-react-jsx --save-dev
+```
+
+In *.babelrc*
+
+```json
+"plugins": [
+  ["transform-react-jsx", { "pragma": "iDom.create" }]
+]
+```
+
+
+## TODO
+
+- Bind event handlers' `this` to component instance
+- A way to call render method within component instance
+- Unescaped text/HTML in JSX
+- Document and test all methods

@@ -1,15 +1,20 @@
 {
   "name": "idom",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Modular, smart-rendering views with JSX and incremental DOM",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "incremental-dom": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/eliot-akira/idom.git"
