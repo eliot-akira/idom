@@ -1,6 +1,6 @@
 {
   "name": "idom",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Smart-rendering views with JSX and incremental DOM",
   "main": "lib/index.js",
   "scripts": {
