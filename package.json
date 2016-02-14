@@ -1,11 +1,11 @@
 {
   "name": "idom",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Smart-rendering views with JSX and incremental DOM",
   "main": "lib/index.js",
   "scripts": {
     "build": "mkdir -p dist && browserify src/index.js -t babelify -p [minifyify --no-map] -o dist/idom.js",
-    "build:lib": "babel src --out-dir lib",
+    "build:lib": "rm -rf lib && mkdir -p lib && babel src --out-dir lib",
     "prepublish": "npm run build:lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
