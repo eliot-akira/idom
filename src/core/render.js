@@ -6,10 +6,11 @@ function render( el, fn ) {
 
     el.renderFn = fn
 
-  // Check previously defined
+  // Previously defined
   } else if ( el.renderFn ) {
 
     // Apply new attributes to render function
+    // Empty string to prevent undefined
     el.renderFn = el.renderFn( fn || '' )
 
   // No render function
@@ -19,9 +20,6 @@ function render( el, fn ) {
 
   // The rendered element
   return el.firstChild
-
-  // ..or the container element?
-  // return el
 }
 
 export default render

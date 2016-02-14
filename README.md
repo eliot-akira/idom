@@ -1,74 +1,79 @@
-
 # iDom
 
 Modular, smart-rendering views with JSX and incremental DOM
 
-## Use
-
-Require/import the library before any JSX.
-
-```js
-import iDom from 'idom'
-```
-
 ## Example
 
-**Pure function**
+### Class
 
 ```js
-const Button = (props) => {
-
-  let butonClass = 'btn'
-
-  buttonClass += ` btn-${ props.type || 'default' }`
-
-  if (props.class) buttonClass += ` ${props.class}`
-
-  return (
-    <button class={buttonClass} onclick={ props.click }>
-      { props.text }
-    </button>    
-  )
-}
-```
-
-**Class**
-
-```js
-class Counter {
+class Button {
 
   constructor() {
-    this.state = {
-      count: 0
-    }
+    this.count = 0
   }
 
-  onClick(e) {
-
-    // `this` should point to instance
-
-    this.state.count++    
-
-    // Re-render
+  onClick( event ) {
+    this.count++
+    this.render()
   }
 
   render( props ) {
     return (
-      <div class="counter">{ this.state.count }</div>
-      <Button click={ this.onClick }>
-        Click here
-      </Button>
-    )    
+      <button type="button" class="btn" onclick={ this.onClick }>
+        { this.count }
+      </button>
+    )
   }
+}
+
+export default Button
+```
+
+Standard HTML attributes are used, including events. Call the *render* method to render itself.
+
+#### Using the component
+
+```js
+import 'idom'
+import Button from 'button'
+
+const app = document.body.querySelector('#app')
+
+app.render( <Button /> )
+```
+
+The library is imported before any JSX.
+
+Component names begin with an uppercase letter.
+
+A *render* method is provided to HTML elements. It can be called more than once, with new components or attributes.
+
+### Pure function
+
+A component as a pure function has no instance or state.
+
+```js
+const Button = ( props ) => {
+  return (
+    <button onclick={ props.click }>
+      { props.count }
+    </button>
+  )
 }
 ```
 
-**Render**
+To use it:
 
 ```js
-const app = dom.query('#app')
+let count = 0
 
-app.render(<Counter />)
+const click = () => {
+  count++
+  app.render({ count })
+}
+
+app.render( <Button { count, click } /> )
 ```
 
 ## Install
@@ -77,7 +82,7 @@ app.render(<Counter />)
 $ npm install idom --save
 ```
 
-#### Setup for JSX
+#### Compiling JSX
 
 Dev dependencies
 
@@ -96,7 +101,4 @@ In *.babelrc*
 
 ## TODO
 
-- Bind event handlers' `this` to component instance
-- A way to call render method within component instance
-- Unescaped text/HTML in JSX
 - Document and test all methods
