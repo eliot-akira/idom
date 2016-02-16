@@ -30,28 +30,57 @@ class Button {
 export default Button
 ```
 
-Standard HTML attributes are used, including events. Call the *render* method to render itself.
+**Render**
+
+A component class must provide a render method that returns JSX. Standard HTML attributes are used, including events. Call the *render* method to re-render with current state.
+
+**Events**
+
+Event handlers will have `this` bound to the component instance, not the element.
 
 #### Using the component
 
+The library is imported before any JSX.
+
 ```js
 import 'idom'
-import Button from 'button'
+```
 
+Component names begin with an uppercase letter.
+
+```js
+import Button from 'button'
+```
+
+An HTML element is provided with a *render* method, which will render JSX passed to it.
+
+```js
 const app = document.body.querySelector('#app')
 
 app.render( <Button /> )
 ```
 
-The library is imported before any JSX.
+This creates a new instance of the component class.
 
-Component names begin with an uppercase letter.
+**Props/attributes**
 
-A *render* method is provided to HTML elements. It can be called more than once, with new components or attributes.
+Attributes on a component will be passed as an object to the render method.
+
+```js
+app.render(<Button key=value />)
+```
+
+To set new attributes on an existing component instance, call the render method again with an object.
+
+```js
+app.render({
+  key: newValue
+})
+```
 
 ### Pure function
 
-A component as a pure function has no instance or state.
+A component as a pure function is just the render method, with no state.
 
 ```js
 const Button = ( props ) => {
@@ -101,4 +130,4 @@ In *.babelrc*
 
 ## TODO
 
-- Document and test all methods
+- Tests
