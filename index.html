@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<title>idom example</title>
+
+<style>
+  button { font-size: 18px; }
+</style>
+
+<div id="root"></div>
+
+<script src='dist/idom.js'></script>
+<script>
+
+  // Functional component
+
+  var create = idom
+
+  function Button(props, children) {
+    var buttonProps = {
+      onclick: props.action,
+      style: { backgroundColor: props.color }
+    }
+    return create('button', buttonProps, children)
+  }
+
+  // Action -> state -> render
+
+  var render = idom.render
+  var el = document.getElementById('root')
+
+  function action() {
+    var state = '#'+Math.floor(Math.random()*16777215).toString(16)
+    render(Button({ action: action, color: state }, state), el)
+  }
+
+  action()
+</script>

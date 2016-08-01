@@ -1,133 +1,108 @@
-# iDom
+# [idom](https://github.com/eliot-akira/idom)
 
-Modular, smart-rendering views with JSX and incremental DOM
+`idom` is a minimal library for writing **stateless functional view components**, efficiently rendered by [Incremental DOM](https://github.com/google/incremental-dom/).
+
+It is based on the same paradigm as React, with:
+
+- In-place diffing instead of virtual DOM
+- Only functions for components (no class or state)
+- Small size (6kB minified)
+
+The implementation is inspired by an article by Brent Jackson: [Universal UI Components](http://jxnblk.com/writing/posts/universal-ui-components/).
 
 ## Example
 
-### Class
+The following assumes the use of Babel and JSX, but they're not required.
+
+**Component**
 
 ```js
-class Button {
+const Button = (props) => {
 
-  constructor() {
-    this.count = 0
-  }
+  let { action, color } = props
+  let style = { backgroundColor: color }
 
-  onClick( event ) {
-    this.count++
-    this.render()
-  }
-
-  render( props ) {
-    return (
-      <button type="button" class="btn" onclick={ this.onClick }>
-        { this.count }
-      </button>
-    )
-  }
-}
-
-export default Button
-```
-
-**Render**
-
-A component class must provide a render method that returns JSX. Standard HTML attributes are used, including events. Call the *render* method to re-render with current state.
-
-**Events**
-
-Event handlers will have `this` bound to the component instance, not the element.
-
-#### Using the component
-
-The library is imported before any JSX.
-
-```js
-import 'idom'
-```
-
-Component names begin with an uppercase letter.
-
-```js
-import Button from 'button'
-```
-
-An HTML element is provided with a *render* method, which will render JSX passed to it.
-
-```js
-const app = document.body.querySelector('#app')
-
-app.render( <Button /> )
-```
-
-This creates a new instance of the component class.
-
-**Props/attributes**
-
-Attributes on a component will be passed as an object to the render method.
-
-```js
-app.render(<Button key=value />)
-```
-
-To set new attributes on an existing component instance, call the render method again with an object.
-
-```js
-app.render({
-  key: newValue
-})
-```
-
-### Pure function
-
-A component as a pure function is just the render method, with no state.
-
-```js
-const Button = ( props ) => {
   return (
-    <button onclick={ props.click }>
-      { props.count }
+    <button onclick={action} style={style}>
+      { color }
     </button>
   )
 }
 ```
 
-To use it:
+**Render**
 
 ```js
-let count = 0
+import { render } from 'idom'
+import Button from './button'
 
-const click = () => {
-  count++
-  app.render({ count })
+const el = document.getElementById('root')
+
+// action -> state -> render -> action
+
+const action = () => {
+  const state = '#'+Math.floor(Math.random()*16777215).toString(16)
+  render(<Button {...{ action, color: state }} />, el)
 }
 
-app.render( <Button { count, click } /> )
+action()
 ```
 
-## Install
+## Methods
 
-```bash
-$ npm install idom --save
-```
+### render(Component, HTMLElement)
 
-#### Compiling JSX
+Render a functional component to the given DOM element. Call again to re-render. After the first call, only the difference will be applied.
 
-Dev dependencies
+### element(tag, props, ...children)
 
-```bash
-$ npm install babel babel-plugin-transform-react-jsx --save-dev
-```
+Create a virtual element to be rendered. JSX is compiled to call this method, so there's no need to use it directly. It is similar to `h` in hyperscript, or `React.createElement`.
 
-In *.babelrc*
+## Property names
+
+Standard DOM element property names are used, such as `class` and `onclick`.
+
+## Setup
+
+Install `babel` and `babel-plugin-transform-react-jsx`.
+
+In `.babelrc`, add:
 
 ```json
 "plugins": [
-  ["transform-react-jsx", { "pragma": "iDom.create" }]
+  [
+    "transform-react-jsx",
+    { "pragma": "idom" }
+  ]
 ]
 ```
 
+### JSX
 
-## TODO
+JSX used in components are compiled to call `idom`. Use one of the methods below to provide the function.
 
-- Tests
+**Import**
+
+The basic way is to import `idom` at the top of every component.
+
+```js
+import idom from 'idom'
+```
+
+**Global**
+
+You can import `idom` as a global variable, once at the beginning of the application. Then it is available for all components implicitly.
+
+```js
+import 'idom/global'
+```
+
+**Webpack**
+
+```js
+plugins: [
+  new webpack.ProvidePlugin({
+    idom: path.resolve('idom')
+  })
+]
+```
