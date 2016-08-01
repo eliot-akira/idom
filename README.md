@@ -1,14 +1,12 @@
 # [idom](https://github.com/eliot-akira/idom)
 
-`idom` is a minimal library for writing **stateless functional view components**, efficiently rendered by [Incremental DOM](https://github.com/google/incremental-dom/).
+`idom` is a library for writing **stateless functional view components**, rendered by [Incremental DOM](https://github.com/google/incremental-dom/).
 
 It is based on the same paradigm as React, with:
 
 - In-place diffing instead of virtual DOM
 - Only functions for components (no class or state)
 - Small size (6kB minified)
-
-The implementation is inspired by an article by Brent Jackson: [Universal UI Components](http://jxnblk.com/writing/posts/universal-ui-components/).
 
 ## Example
 
@@ -106,3 +104,7 @@ plugins: [
   })
 ]
 ```
+
+---
+
+The implementation/syntax of `idom` is inspired by an article by Brent Jackson: [Universal UI Components](http://jxnblk.com/writing/posts/universal-ui-components/).
