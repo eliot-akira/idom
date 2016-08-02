@@ -31,13 +31,13 @@ const Button = ({ action, color }) => {
 
 ```js
 import { render } from 'idom'
-import Button from './button'
+import Button from './Button'
 
 const el = document.getElementById('root')
 
 const action = () => {
   const state = '#'+Math.floor(Math.random()*16777215).toString(16)
-  render(<Button {...{ action, color: state }} />, el)
+  render(<Button action={action} color={state} />, el)
 }
 
 action()
@@ -47,11 +47,15 @@ action()
 
 ### render(Component, HTMLElement)
 
-Render a functional component to the given DOM element. Call again to re-render. After the first call, only the difference will be applied.
+Render a functional component to the given DOM element.
+
+It is called again with new state to re-render; only the difference will be applied to the DOM.
 
 ### element(tag, props, ...children)
 
-Create a virtual element to be rendered. JSX is compiled to call this method, so there's no need to use it directly. It is similar to `h` in hyperscript, or `React.createElement`.
+Create a virtual element to be rendered.
+
+JSX is compiled to call this method, so there's no need to use it directly. It is similar to `React.createElement` or `h` in hyperscript.
 
 ## Property names
 
