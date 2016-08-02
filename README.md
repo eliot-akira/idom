@@ -15,9 +15,8 @@ The following assumes the use of Babel and JSX, but they're not required.
 **Component**
 
 ```js
-const Button = (props) => {
+const Button = ({ action, color }) => {
 
-  let { action, color } = props
   let style = { backgroundColor: color }
 
   return (
@@ -35,8 +34,6 @@ import { render } from 'idom'
 import Button from './button'
 
 const el = document.getElementById('root')
-
-// action -> state -> render -> action
 
 const action = () => {
   const state = '#'+Math.floor(Math.random()*16777215).toString(16)
