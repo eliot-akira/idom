@@ -105,7 +105,7 @@ import 'idom/global'
 ```js
 plugins: [
   new webpack.ProvidePlugin({
-    idom: path.resolve('idom')
+    idom: 'idom'
   })
 ]
 ```
