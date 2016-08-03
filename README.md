@@ -45,25 +45,29 @@ action()
 
 ## Methods
 
-### render(Component, HTMLElement)
-
-Render a functional component to the given DOM element.
-
-It is called again with new state to re-render; only the difference will be applied to the DOM.
-
 ### element(tag, props, ...children)
 
-Create a virtual element to be rendered.
+Create a virtual element to be rendered. JSX is compiled to call this method, so there's no need to use it directly. It is similar to `React.createElement` or `h` in hyperscript.
 
-JSX is compiled to call this method, so there's no need to use it directly. It is similar to `React.createElement` or `h` in hyperscript.
+### render(Component, HTMLElement)
+
+Render a functional component to the given DOM element. It is called again with new state to re-render; only the difference will be applied to the DOM.
 
 ## Property names
 
 Standard DOM element property names are used, such as `class` and `onclick`.
 
+## Install
+
+```bash
+npm install idom --save
+```
+
 ## Setup
 
-Install `babel` and `babel-plugin-transform-react-jsx`.
+```bash
+npm install babel babel-plugin-transform-react-jsx --save-dev
+```
 
 In `.babelrc`, add:
 
